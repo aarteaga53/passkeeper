@@ -1,7 +1,11 @@
 :root {
+  --black: #222;
   --orange: #ff822e;
+  --pastel-org: #ff8c3f;
+;
 }
 
 body {
-  background-color: var(--orange);
+  font-family: 'Ubuntu', sans-serif;
+  background-color: var(--pastel-org);
 }
