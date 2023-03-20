@@ -153,9 +153,9 @@ let signup = async (event: { preventDefault: () => void; currentTarget: HTMLForm
           <div className='auth-options'>
             <FormGroup>
               {isSignup ? (
-                <FormControlLabel control={<Checkbox size='small' required />} label="I agree to the terms & conditions." />
+                <FormControlLabel control={<Checkbox color='secondary' size='small' required />} label="I agree to the terms & conditions." />
               ) : (
-                <FormControlLabel control={<Checkbox size='small' />} label="Remember me" />
+                <FormControlLabel control={<Checkbox color='secondary' size='small' />} label="Remember me" />
               )}
             </FormGroup>
             {isSignup ? null : (<div className='forgot'>Forgot Password?</div>)}

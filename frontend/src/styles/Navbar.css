@@ -11,7 +11,7 @@
     font-size: 28px;
     font-weight: bold;
     color: white;
-    padding: 15px 0;
+    padding: 25px 0;
     border-bottom: 1px solid var(--blue);
     margin: 0px 25px;
 }
@@ -40,4 +40,16 @@
 
 .current {
     background-color: var(--blue);
+}
+
+@media only screen and (max-width: 768px)  {
+
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1800px)  {
+    .navbar { width: 15vw; }
+
+    .name { font-size: 24px; }
+
+    .nav-link { width: 70%; }
 }

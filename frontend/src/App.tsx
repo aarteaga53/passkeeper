@@ -5,6 +5,7 @@ import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import Landing from './components/Landing';
 import { ThemeProvider, createTheme } from '@mui/material';
+import Home from './components/Home';
 
 interface User {
   _id?: string,
@@ -79,6 +80,7 @@ function App() {
             {isSignedIn ? (<Route path='' element={<Navigate to='/home'></Navigate>}></Route>) : null}
             <Route path='' element={<Landing />}></Route>
             <Route path='auth' element={<Auth setToken={setToken} setUser={setUser} />}></Route>
+            <Route path='home' element={<Home user={user} />}></Route>
           </Routes>
         </div>
       </Router>
