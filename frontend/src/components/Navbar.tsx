@@ -33,7 +33,7 @@ const Navbar = ({ user, setIsSignedIn }: { user: User, setIsSignedIn: React.Disp
       <div className='name'>Pass Keeper</div>
       <div className='nav-links'>
         <Link className={isCurrent('home')} to='/home'>Home</Link>
-        <Link className='nav-link' to='/' onClick={logout}>Logout</Link>
+        <Link className='nav-link' to='/' onClick={logout}>Sign Out</Link>
       </div>
     </div>
   )

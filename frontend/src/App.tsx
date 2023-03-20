@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import Landing from './components/Landing';
+import { ThemeProvider, createTheme } from '@mui/material';
 
 interface User {
   _id?: string,
@@ -17,6 +18,16 @@ function App() {
   let [token, setToken] = useState<string>('')
   let [user, setUser] = useState<User>({})
   let [isSignedIn, setIsSignedIn] = useState<boolean>(false)
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#ff7d26',
+      },
+      secondary: {
+        main: '#26A8FF'
+      }
+    },
+  })
 
   useEffect(() => {
     /**
@@ -60,16 +71,18 @@ function App() {
   }, [token])
 
   return (
-    <Router>
-      <div>
-        {isSignedIn ? (<Navbar user={user} setIsSignedIn={setIsSignedIn} />) : null}
-        <Routes>
-          {isSignedIn ? (<Route path='' element={<Navigate to='/home'></Navigate>}></Route>) : null}
-          <Route path='' element={<Landing />}></Route>
-          <Route path='auth' element={<Auth setToken={setToken} setUser={setUser} />}></Route>
-        </Routes>
-      </div>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <div>
+          {isSignedIn ? (<Navbar user={user} setIsSignedIn={setIsSignedIn} />) : null}
+          <Routes>
+            {isSignedIn ? (<Route path='' element={<Navigate to='/home'></Navigate>}></Route>) : null}
+            <Route path='' element={<Landing />}></Route>
+            <Route path='auth' element={<Auth setToken={setToken} setUser={setUser} />}></Route>
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   )
 }
 

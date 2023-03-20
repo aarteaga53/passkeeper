@@ -115,7 +115,7 @@ let signup = async (event: { preventDefault: () => void; currentTarget: HTMLForm
           <div className='auth-title'>{isSignup ? 'Sign Up' : 'Sign In'}</div>
           <div className='auth-inputs'>
             {isSignup ? (<>
-              <TextField variant='standard' id='username' name='username' label='Username' type='text' margin='normal' required 
+              <TextField variant='standard' color='secondary' id='username' name='username' label='Username' type='text' margin='normal' required 
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position='end'>
@@ -127,7 +127,7 @@ let signup = async (event: { preventDefault: () => void; currentTarget: HTMLForm
                 }}
               />
             </>) : null}
-            <TextField variant='standard' id='email' name='email' label='Email' type='email' margin='normal' required 
+            <TextField variant='standard' color='secondary' id='email' name='email' label='Email' type='email' margin='normal' required 
               InputProps={{
                 endAdornment: (
                   <InputAdornment position='end'>
@@ -138,7 +138,7 @@ let signup = async (event: { preventDefault: () => void; currentTarget: HTMLForm
                 ),
               }}
             />
-            <TextField variant='standard' id='password' name='password' label='Password' type={showPassword ? 'text' : 'password'} margin='normal' required
+            <TextField variant='standard' color='secondary' id='password' name='password' label='Password' type={showPassword ? 'text' : 'password'} margin='normal' required
               InputProps={{
                 endAdornment: (
                   <InputAdornment position='end'>
@@ -160,7 +160,7 @@ let signup = async (event: { preventDefault: () => void; currentTarget: HTMLForm
             </FormGroup>
             {isSignup ? null : (<div className='forgot'>Forgot Password?</div>)}
           </div>
-          <Button variant='contained' type='submit' fullWidth>{isSignup ? 'Sign Up' : 'Sign In'}</Button>
+          <Button variant='contained' color='secondary' type='submit' fullWidth>{isSignup ? 'Sign Up' : 'Sign In'}</Button>
           {isSignup ? (
             <div className='register'>
               <div>Already have an account?</div>

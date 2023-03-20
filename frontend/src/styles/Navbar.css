@@ -12,7 +12,7 @@
     font-weight: bold;
     color: white;
     padding: 15px 0;
-    border-bottom: 1px solid var(--orange);
+    border-bottom: 1px solid var(--blue);
     margin: 0px 25px;
 }
 
@@ -35,9 +35,9 @@
 }
 
 .nav-link:hover {
-    background-color: var(--pastel-org);
+    background-color: var(--p-blue);
 }
 
 .current {
-    background-color: var(--orange);
+    background-color: var(--blue);
 }
