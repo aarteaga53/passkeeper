@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Home.css'
 import { Button, TextField } from '@mui/material'
 
@@ -20,7 +20,22 @@ interface Password {
 const Home = ({ user }: { user: User }) => {
   let [passwords, setPasswords] = useState<Password[]>([])
 
-  let inputPassword = (event: { preventDefault: () => void; currentTarget: HTMLFormElement | undefined }) => {
+  useEffect(() => {
+    let getPasswords = async () => {
+      if(user) {
+        let response = await fetch(`http://127.0.0.1:8000/passwords/${user.username}`)
+        let data = await response.json()
+  
+        if(!('msg' in data)) {
+          setPasswords(data.reverse())
+        }
+      }
+    }
+
+    getPasswords()
+  }, [user])
+
+  let inputPassword = async (event: { preventDefault: () => void; currentTarget: HTMLFormElement | undefined }) => {
     event.preventDefault()
     const form = new FormData(event.currentTarget)
     const newPassword: Password = {
@@ -29,9 +44,22 @@ const Home = ({ user }: { user: User }) => {
       password: form.get('password')?.toString()
     }
 
-    setPasswords(passwords => [...passwords, newPassword])
-    clearInput('name')
-    clearInput('password')
+    let response = await fetch(`http://127.0.0.1:8000/passwords/input`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ newPassword: newPassword })
+    })
+
+    let data = await response.json()
+
+    if('insertedId' in data) {
+      newPassword._id = data.insertedId  
+      setPasswords(passwords => [newPassword, ...passwords])
+      clearInput('name')
+      clearInput('password')
+    }
   }
 
   let clearInput = (id: string) => {
@@ -43,7 +71,11 @@ const Home = ({ user }: { user: User }) => {
     <div className='page-body'>
       <div className='password-table'>
         {passwords.map((pass, index) => (
-          <div key={index}>{pass.name}</div>
+          <div key={index}>
+            <div>{pass.username}</div>
+            <div>{pass.name}</div>
+            <div>{pass.password}</div>
+          </div>
         ))}
       </div>
       <form className='input-password' onSubmit={inputPassword}>

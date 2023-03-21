@@ -3,6 +3,7 @@ require('dotenv').config({ path: '../config.env' })
 import express from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
 import { ObjectId } from 'mongodb'
 
 // recordRoutes is an instance of the express router.
@@ -12,6 +13,73 @@ const recordRoutes = express.Router()
 
 // This will help us connect to the database
 import dbo from '../db/conn'
+
+recordRoutes.route('/passwords/:username').get(async (req, res) => {
+  const dbConnect = dbo.getDb()
+  const collection = dbConnect.collection('passwords')
+  const username = { username: req.params.username }
+
+  try {
+    const key = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_KEY)
+      .digest('hex')
+      .substring(0, 16)
+    const encryptionIV = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_IV)
+      .digest('hex')
+      .substring(0, 16)
+
+    let passwords = await collection.find(username).toArray()
+    
+    for(let i in passwords) {
+      const buff = Buffer.from(passwords[i].password, 'base64')
+      const decipher = crypto.createDecipheriv('aes-128-cbc', key, encryptionIV)
+
+      passwords[i].password = decipher.update(buff.toString('utf8'), 'hex', 'utf8') + decipher.final('utf8')
+    }
+
+    res.json(passwords)
+  } catch(err) {
+    res.json({ msg: 'error' })
+  }
+})
+
+recordRoutes.route('/passwords/input').post(async (req, res) => {
+  const dbConnect = dbo.getDb()
+  const collection = dbConnect.collection('passwords')
+  const newPassword = req.body.newPassword
+
+  try {
+    const key = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_KEY)
+      .digest('hex')
+      .substring(0, 16)
+    const encryptionIV = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_IV)
+      .digest('hex')
+      .substring(0, 16)
+
+    const cipher = crypto.createCipheriv('aes-128-cbc', key, encryptionIV)
+    newPassword.password = Buffer.from(
+      cipher.update(newPassword.password, 'utf8', 'hex') + cipher.final('hex')
+    ).toString('base64')
+
+    const result = await collection.insertOne(newPassword)
+    
+    if(result.insertedId !== null) {
+      res.json(result)
+    } else {
+      res.json({ err: 'error' })
+    }
+  } catch(err) {
+    console.log(err)
+    res.json({ msg: 'error' })
+  }
+})
 
 // verify user exists
 recordRoutes.route('/verify').post(async (req, res) => {
