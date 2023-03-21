@@ -10,3 +10,12 @@
     flex-direction: column;
     margin: 25px 0 0 25px;
 }
+
+.pass-password {
+    border: none;
+    background-color: transparent;
+}
+
+.pass-password:focus {
+    outline: none;
+}

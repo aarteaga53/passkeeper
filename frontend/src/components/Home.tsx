@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/Home.css'
-import { Button, TextField } from '@mui/material'
+import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Visibility from '@mui/icons-material/Visibility'
 
 interface User {
   _id?: string,
@@ -19,6 +21,7 @@ interface Password {
 
 const Home = ({ user }: { user: User }) => {
   let [passwords, setPasswords] = useState<Password[]>([])
+  let [showPassword, setShowPassword] = useState<boolean>(false)
 
   useEffect(() => {
     let getPasswords = async () => {
@@ -67,20 +70,33 @@ const Home = ({ user }: { user: User }) => {
     input.value = ''
   }
 
+  let toggleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
   return (
     <div className='page-body'>
       <div className='password-table'>
         {passwords.map((pass, index) => (
           <div key={index}>
-            <div>{pass.username}</div>
             <div>{pass.name}</div>
-            <div>{pass.password}</div>
+            <input className='pass-password' type='password' value={pass.password} />
           </div>
         ))}
       </div>
       <form className='input-password' onSubmit={inputPassword}>
         <TextField variant='outlined' color='secondary' id='name' name='name' label='Name' type='text' margin='normal' required />
-        <TextField variant='outlined' color='secondary' id='password' name='password' label='Password' type='password' margin='normal' required />
+        <TextField variant='outlined' color='secondary' id='password' name='password' label='Password' type={showPassword ? 'text' : 'password'} margin='normal' required
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton size='small' onClick={toggleShowPassword}>
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
         <Button variant='contained' color='secondary' type='submit' >Enter</Button>
       </form>
     </div>
