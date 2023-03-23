@@ -1,21 +1,50 @@
 .password-table {
-    border: 2px solid var(--purple);
     border-radius: 8px;
     width: 20%;
     margin: 25px 0 0 25px;
+    padding: 10px;
+    background-color: var(--p-purple);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .input-password {
     display: flex;
     flex-direction: column;
     margin: 25px 0 0 25px;
+    background-color: var(--p-purple);
+    border-radius: 8px;
+    padding: 10px 25px;
+}
+
+.pass-item {
+    display: flex;
+    background-color: var(--p-orange);
+    border-radius: 8px;
+    padding: 15px;
+    align-items: center;
+}
+
+.pass-name {
+    font-size: 18px;
 }
 
 .pass-password {
     border: none;
     background-color: transparent;
+    margin: 0 10px 0 auto;
+    text-align: right;
 }
 
 .pass-password:focus {
     outline: none;
+}
+
+@media only screen and (max-width: 768px)  {
+
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1800px)  {
+    .password-table { width: 35%; }
 }

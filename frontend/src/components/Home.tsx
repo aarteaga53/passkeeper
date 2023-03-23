@@ -3,6 +3,7 @@ import '../styles/Home.css'
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
+import PasswordItem from './PasswordItem'
 
 interface User {
   _id?: string,
@@ -15,7 +16,7 @@ interface User {
 interface Password {
   _id?: string,
   username?: string,
-  name?: string,
+  for?: string,
   password?: string
 }
 
@@ -43,7 +44,7 @@ const Home = ({ user }: { user: User }) => {
     const form = new FormData(event.currentTarget)
     const newPassword: Password = {
       username: user.username, 
-      name: form.get('name')?.toString(), 
+      for: form.get('for')?.toString(), 
       password: form.get('password')?.toString()
     }
 
@@ -60,7 +61,7 @@ const Home = ({ user }: { user: User }) => {
     if('insertedId' in data) {
       newPassword._id = data.insertedId  
       setPasswords(passwords => [newPassword, ...passwords])
-      clearInput('name')
+      clearInput('for')
       clearInput('password')
     }
   }
@@ -77,20 +78,17 @@ const Home = ({ user }: { user: User }) => {
   return (
     <div className='page-body'>
       <div className='password-table'>
-        {passwords.map((pass, index) => (
-          <div key={index}>
-            <div>{pass.name}</div>
-            <input className='pass-password' type='password' value={pass.password} />
-          </div>
+        {passwords.map((password, index) => (
+          <PasswordItem password={password} key={index} />
         ))}
       </div>
       <form className='input-password' onSubmit={inputPassword}>
-        <TextField variant='outlined' color='secondary' id='name' name='name' label='Name' type='text' margin='normal' required />
-        <TextField variant='outlined' color='secondary' id='password' name='password' label='Password' type={showPassword ? 'text' : 'password'} margin='normal' required
+        <TextField variant='outlined' color='secondary' id='for' name='for' label='For' type='text' margin='normal' focused required />
+        <TextField variant='outlined' color='secondary' id='password' name='password' label='Password' type={showPassword ? 'text' : 'password'} margin='normal' focused required
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
-                <IconButton size='small' onClick={toggleShowPassword}>
+                <IconButton size='small' onClick={toggleShowPassword} sx={{ '&:hover': { backgroundColor: 'rgba(38, 255, 125, 0.4)' } }}>
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
