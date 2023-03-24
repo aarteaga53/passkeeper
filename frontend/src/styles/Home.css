@@ -1,21 +1,53 @@
 .password-table {
     border-radius: 8px;
-    width: 20%;
-    margin: 25px 0 0 25px;
-    padding: 10px;
-    background-color: var(--p-purple);
+    width: 30%;
     display: flex;
     flex-direction: column;
+    margin-top: 25px;
     gap: 10px;
 }
 
-.input-password {
+.table-header {
     display: flex;
-    flex-direction: column;
-    margin: 25px 0 0 25px;
-    background-color: var(--p-purple);
+    padding: 15px;
+    background-color: var(--orange);
     border-radius: 8px;
-    padding: 10px 25px;
+    font-size: 18px;
+}
+
+.table-row {
+    padding: 15px;
+    background-color: var(--p-orange);
+    border-radius: 8px;
+    display: flex;
+}
+
+.table-ipt {
+    border: 1px solid var(--p-purple);
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+
+.table-ipt:focus {
+    outline: none;
+    border: 1px solid var(--p-green);
+}
+
+.table-ipt:nth-child(1) {
+    width: 30%;
+}
+
+.table-ipt:nth-child(2) {
+    margin: 0 10px 0 auto;
+}
+
+.col-1 {
+    flex: 55%;
+}
+
+.col-2 {
+    flex: 45%;
 }
 
 .pass-item {
@@ -27,14 +59,13 @@
 }
 
 .pass-name {
-    font-size: 18px;
+    font-weight: bold;
 }
 
 .pass-password {
     border: none;
     background-color: transparent;
     margin: 0 10px 0 auto;
-    text-align: right;
 }
 
 .pass-password:focus {
@@ -42,9 +73,9 @@
 }
 
 @media only screen and (max-width: 768px)  {
-
+    .password-table { width: 95%; }
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1800px)  {
-    .password-table { width: 35%; }
+    .password-table { width: 60%; }
 }

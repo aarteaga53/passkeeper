@@ -14,6 +14,24 @@ const recordRoutes = express.Router()
 // This will help us connect to the database
 import dbo from '../db/conn'
 
+recordRoutes.route('/passwords/delete/:id').delete(async (req, res) => {
+  const dbConnect = dbo.getDb()
+  const collection = dbConnect.collection('passwords')
+  const passwordId = { _id: new ObjectId(req.params.id) }
+
+  try {
+    const result = await collection.deleteOne(passwordId)
+
+    if(result.deletedCount === 1) {
+      res.json({ msg: 'success' })
+    } else {
+      res.json({ msg: 'error' })
+    }
+  } catch(err) {
+    res.json({ msg: 'error' })
+  }
+})
+
 recordRoutes.route('/passwords/:username').get(async (req, res) => {
   const dbConnect = dbo.getDb()
   const collection = dbConnect.collection('passwords')
