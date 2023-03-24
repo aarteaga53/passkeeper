@@ -8,7 +8,20 @@
   --p-blue: #4FB8FF;
   --p-green: #4FFF96;
   --p-purple: #964FFF;
-;
+
+}
+
+.light-theme {
+  --bg-color: beige;
+  --fg-color: var(--blue);
+  --fg-shade: var(--p-blue);
+
+}
+
+.dark-theme {
+  --bg-color: #3B2D2D;
+  --fg-color: var(--orange);
+  --fg-shade: var(--p-orange);
 }
 
 body {
@@ -23,7 +36,7 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  background-color: beige;
+  background-color: var(--bg-color);
 }
 
 .wave {

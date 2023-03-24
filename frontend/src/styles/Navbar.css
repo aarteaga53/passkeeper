@@ -12,7 +12,7 @@
     font-weight: bold;
     color: white;
     padding: 25px 0;
-    border-bottom: 1px solid var(--blue);
+    border-bottom: 1px solid var(--purple);
     margin: 0px 25px;
 }
 
@@ -26,20 +26,26 @@
 
 .nav-link {
     text-decoration: none;
-    font-size: 18px;
     color: white;
     border-radius: 4px;
     padding: 10px 0;
-    text-align: center;
-    width: 50%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    user-select: none;
 }
 
 .nav-link:hover {
-    background-color: var(--p-blue);
+    background-color: var(--p-purple);
+    cursor: pointer;
+}
+
+.nav-icon {
+    margin: 0 10px;
 }
 
 .current {
-    background-color: var(--blue);
+    background-color: var(--purple);
 }
 
 @media only screen and (max-width: 768px)  {
@@ -49,7 +55,7 @@
 @media only screen and (min-width: 769px) and (max-width: 1800px)  {
     .navbar { width: 15vw; }
 
-    .name { font-size: 24px; }
+    .name { font-size: 24px; margin: 0 15px; }
 
-    .nav-link { width: 70%; }
+    .nav-link { width: 85%; }
 }

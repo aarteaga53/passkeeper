@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/Navbar.css'
 import { Link, useLocation } from 'react-router-dom'
+import LogoutIcon from '@mui/icons-material/Logout'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import LockIcon from '@mui/icons-material/Lock'
 
 interface User {
   _id?: string,
@@ -11,6 +15,7 @@ interface User {
 }
 
 const Navbar = ({ user, setIsSignedIn }: { user: User, setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>> } ) => {
+  let [theme, setTheme] = useState(document.body.className);
   let locate = useLocation()
 
   /**
@@ -28,12 +33,25 @@ const Navbar = ({ user, setIsSignedIn }: { user: User, setIsSignedIn: React.Disp
     setIsSignedIn(false)
   }
 
+  let toggleTheme = () => {
+    if(theme === 'light-theme'){
+      window.localStorage.setItem('theme', 'dark-theme');
+      document.body.className = 'dark-theme'
+      setTheme('dark-theme');
+    }else{
+      window.localStorage.setItem('theme', 'light-theme');
+      document.body.className = 'light-theme'
+      setTheme('light-theme');
+    }
+  }
+
   return (
     <div className='navbar'>
       <div className='name'>Pass Keeper</div>
       <div className='nav-links'>
-        <Link className={isCurrent('home')} to='/home'>Home</Link>
-        <Link className='nav-link' to='/' onClick={logout}>Sign Out</Link>
+        <Link className={isCurrent('home')} to='/home'><LockIcon className='nav-icon' />Passwords</Link>
+        <div className='nav-link' onClick={toggleTheme}>{theme === 'dark-theme' ? (<><LightModeIcon className='nav-icon' />Light Mode</>) : (<><DarkModeIcon className='nav-icon' />Dark Mode</>)}</div>
+        <Link className='nav-link' to='/' onClick={logout}><LogoutIcon className='nav-icon' />Sign Out</Link>
       </div>
     </div>
   )
