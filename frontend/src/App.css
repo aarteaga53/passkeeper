@@ -27,6 +27,7 @@
 body {
   font-family: 'Ubuntu', sans-serif;
   background-color: var(--orange);
+  color: white;
 }
 
 .page-body {
@@ -60,6 +61,8 @@ body {
 }
 
 @media only screen and (max-width: 768px)  {
+  .page-body { left: 0; max-width: 100vw; }
+
   .wave svg { width: calc(225% + 1.3px); }
 }
 

@@ -40,7 +40,7 @@
     cursor: pointer;
 }
 
-.nav-icon {
+.link-icon {
     margin: 0 10px;
 }
 
@@ -48,8 +48,23 @@
     background-color: var(--purple);
 }
 
+.nav-toggle {
+    position: fixed;
+    visibility: hidden;
+}
+
 @media only screen and (max-width: 768px)  {
-    .navbar { visibility: hidden; }
+    .navbar { width: 85vw; visibility: hidden; }
+
+    .nav-toggle {
+        visibility: visible;
+        position: fixed;
+        z-index: 2;
+        /* position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end; */
+    }
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1800px)  {

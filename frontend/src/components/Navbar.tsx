@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import '../styles/Navbar.css'
 import { Link, useLocation } from 'react-router-dom'
+import { IconButton } from '@mui/material'
 import LogoutIcon from '@mui/icons-material/Logout'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import LockIcon from '@mui/icons-material/Lock'
+import MenuIcon from '@mui/icons-material/Menu'
+import CloseIcon from '@mui/icons-material/Close'
 
 interface User {
   _id?: string,
@@ -15,7 +18,8 @@ interface User {
 }
 
 const Navbar = ({ user, setIsSignedIn }: { user: User, setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>> } ) => {
-  let [theme, setTheme] = useState(document.body.className);
+  let [theme, setTheme] = useState(document.body.className)
+  let [isDisplayed, setIsDisplayed] = useState<boolean>(false)
   let locate = useLocation()
 
   /**
@@ -33,6 +37,18 @@ const Navbar = ({ user, setIsSignedIn }: { user: User, setIsSignedIn: React.Disp
     setIsSignedIn(false)
   }
 
+  let toggleNav = () => {
+    let nav = (document.getElementById('navbar') as HTMLDivElement)
+
+    if(isDisplayed) {
+      setIsDisplayed(false)
+      nav.style.visibility = 'hidden'
+    } else {
+      setIsDisplayed(true)
+      nav.style.visibility = 'visible'
+    }
+  }
+
   let toggleTheme = () => {
     if(theme === 'light-theme'){
       window.localStorage.setItem('theme', 'dark-theme');
@@ -46,14 +62,27 @@ const Navbar = ({ user, setIsSignedIn }: { user: User, setIsSignedIn: React.Disp
   }
 
   return (
-    <div className='navbar'>
-      <div className='name'>Pass Keeper</div>
-      <div className='nav-links'>
-        <Link className={isCurrent('home')} to='/home'><LockIcon className='nav-icon' />Passwords</Link>
-        <div className='nav-link' onClick={toggleTheme}>{theme === 'dark-theme' ? (<><LightModeIcon className='nav-icon' />Light Mode</>) : (<><DarkModeIcon className='nav-icon' />Dark Mode</>)}</div>
-        <Link className='nav-link' to='/' onClick={logout}><LogoutIcon className='nav-icon' />Sign Out</Link>
+    <>
+      <div className='nav-toggle'>
+        {isDisplayed ? (
+          <IconButton className='nav-icon' color='inherit' size='small' onClick={toggleNav}>
+            <CloseIcon color='inherit' />
+          </IconButton>
+        ) : (
+          <IconButton className='nav-icon' color='inherit' size='small' onClick={toggleNav}>
+            <MenuIcon color='inherit' />
+          </IconButton>
+        )}
       </div>
-    </div>
+      <div className='navbar' id='navbar'>
+        <div className='name'>Pass Keeper</div>
+        <div className='nav-links'>
+          <Link className={isCurrent('home')} to='/home'><LockIcon className='link-icon' />Passwords</Link>
+          <div className='nav-link' onClick={toggleTheme}>{theme === 'dark-theme' ? (<><LightModeIcon className='link-icon' />Light Mode</>) : (<><DarkModeIcon className='link-icon' />Dark Mode</>)}</div>
+          <Link className='nav-link' to='/' onClick={logout}><LogoutIcon className='link-icon' />Sign Out</Link>
+        </div>
+      </div>
+    </>
   )
 }
 

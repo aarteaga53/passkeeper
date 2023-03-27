@@ -11,7 +11,7 @@ const Landing = () => {
     <div className='landing-body'>
       <Link className='auth-btn' to='/auth'>Sign In</Link>
       <div className='landing-title'>Pass Keeper</div>
-      <div className='landing-sub'>The best password manager around.</div>
+      {/* <div className='landing-sub'>The best password manager around.</div> */}
       <div className='info-sec'>
         <div className='info'>
           <img src={manage} alt='key' />
