@@ -4,13 +4,15 @@
     display: flex;
     flex-direction: column;
     margin-top: 25px;
-    gap: 10px;
+    gap: 5px;
 }
 
 .table-header {
     display: flex;
     padding: 15px;
     background-color: var(--fg-color);
+    color: var(--black);
+    font-weight: bold;
     border-radius: 8px;
     font-size: 18px;
 }
@@ -60,11 +62,13 @@
 
 .pass-name {
     font-weight: bold;
+    color: var(--black);
 }
 
 .pass-password {
     border: none;
     background-color: transparent;
+    color: var(--black);
     margin: 0 10px 0 auto;
 }
 

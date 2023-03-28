@@ -12,6 +12,7 @@
 }
 
 .light-theme {
+  --font: var(--black);
   --bg-color: beige;
   --fg-color: var(--blue);
   --fg-shade: var(--p-blue);
@@ -19,6 +20,7 @@
 }
 
 .dark-theme {
+  --font: whitesmoke;
   --bg-color: #3B2D2D;
   --fg-color: var(--orange);
   --fg-shade: var(--p-orange);
